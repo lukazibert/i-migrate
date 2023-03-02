@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MyCustomBottomNavigtionBar extends StatefulWidget {
+import '../controllers/NavigationController.dart';
+
+class MyCustomBottomNavigtionBar extends StatelessWidget {
   int currentIndex;
   Function onClick;
   MyCustomBottomNavigtionBar({
@@ -9,46 +12,51 @@ class MyCustomBottomNavigtionBar extends StatefulWidget {
     required this.onClick,
   });
 
-  @override
-  State<MyCustomBottomNavigtionBar> createState() =>
-      _MyCustomBottomNavigtionBarState();
-}
+  final navigationController = Get.put(NavigationController());
 
-class _MyCustomBottomNavigtionBarState
-    extends State<MyCustomBottomNavigtionBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: widget.currentIndex == 0
-          ? BoxDecoration(boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 10,
-                offset: Offset(0, 4),
-              )
-            ])
-          : null,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          NavigationBarItem(
-              onClick: () => widget.onClick(0),
-              icon: Icons.map_outlined,
-              selected: widget.currentIndex == 0 ? true : false),
-          NavigationBarItem(
-              onClick: () => widget.onClick(1),
-              icon: Icons.compare_arrows,
-              selected: widget.currentIndex == 1 ? true : false),
-          NavigationBarItem(
-              onClick: () => widget.onClick(2),
-              icon: Icons.support_agent,
-              selected: widget.currentIndex == 2 ? true : false),
-          NavigationBarItem(
-              onClick: () => widget.onClick(3),
-              icon: Icons.account_circle_outlined,
-              selected: widget.currentIndex == 3 ? true : false),
-        ],
+    return Obx(
+      () => Container(
+        decoration: currentIndex == 0
+            ? BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                )
+              ])
+            : null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            NavigationBarItem(
+                onClick: () => onClick(0),
+                icon: Icons.map_outlined,
+                selected: navigationController.currentPageIndex.value == 0
+                    ? true
+                    : false),
+            NavigationBarItem(
+                onClick: () => onClick(1),
+                icon: Icons.compare_arrows,
+                selected: navigationController.currentPageIndex.value == 1
+                    ? true
+                    : false),
+            NavigationBarItem(
+                onClick: () => onClick(2),
+                icon: Icons.support_agent,
+                selected: navigationController.currentPageIndex.value == 2
+                    ? true
+                    : false),
+            NavigationBarItem(
+                onClick: () => onClick(3),
+                icon: Icons.account_circle_outlined,
+                selected: navigationController.currentPageIndex.value == 3
+                    ? true
+                    : false),
+          ],
+        ),
       ),
     );
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:i_migrate/controllers/NavigationController.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
 import 'components/CustomBottomNavigationBar.dart';
 import 'dart:developer';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,28 +18,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       home: Composition(),
     );
   }
 }
 
-class Composition extends StatefulWidget {
+class Composition extends StatelessWidget {
   Composition({super.key});
 
-  @override
-  State<Composition> createState() => _CompositionState();
-}
-
-class _CompositionState extends State<Composition> {
-  int _currentPageIndex = 0;
+  final navigationController = Get.put(NavigationController());
 
   final List<CustomAppBar?> _appBarList = [
     null,
     CustomAppBar(
         title: "Selection",
-        leadingIcon: Container(
+        leadingIcon: const SizedBox(
           width: 28,
           height: 28,
         ),
@@ -50,22 +47,22 @@ class _CompositionState extends State<Composition> {
         )),
     CustomAppBar(
       title: "Migration Agent",
-      leadingIcon: Container(
+      leadingIcon: const SizedBox(
         width: 28,
         height: 28,
       ),
-      tailIcon: Container(
+      tailIcon: const SizedBox(
         width: 28,
         height: 28,
       ),
     ),
     CustomAppBar(
       title: "User Profile",
-      leadingIcon: Container(
+      leadingIcon: const SizedBox(
         width: 28,
         height: 28,
       ),
-      tailIcon: Container(
+      tailIcon: const SizedBox(
         width: 28,
         height: 28,
       ),
@@ -73,66 +70,52 @@ class _CompositionState extends State<Composition> {
   ];
 
   final PageController _pageController = PageController(initialPage: 0);
-  bool _disableScroll = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      if (_pageController.page == 0) {
-        setState(() {
-          _disableScroll = true;
-        });
-      } else {
-        setState(() {
-          _disableScroll = false;
-        });
-      }
-    });
-  }
+  // bool _disableScroll = false;
 
+  // @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBarList[_currentPageIndex],
-      body: PageView.builder(
-        physics: _disableScroll
-            ? NeverScrollableScrollPhysics()
-            : ClampingScrollPhysics(),
-        controller: _pageController,
-        itemCount: _appBarList.length,
-        itemBuilder: ((context, index) {
-          switch (index) {
-            case 0:
-              return GoogleMapsView();
-            case 1:
-              return SelectionView();
-            case 2:
-              return Container();
-            case 3:
-              return Container();
-            default:
-              return GoogleMapsView();
-          }
-        }),
-        onPageChanged: (index) {
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-      ),
-      bottomNavigationBar: MyCustomBottomNavigtionBar(
-        currentIndex: _currentPageIndex,
-        onClick: (selectedPageIndex) => {
-          setState((() => {
-                _currentPageIndex = selectedPageIndex,
-                _pageController.animateToPage(
-                  selectedPageIndex,
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                )
-              }))
-        },
+    return Obx(
+      () => Scaffold(
+        appBar: _appBarList[navigationController.currentPageIndex.value],
+        body: PageView.builder(
+          physics: navigationController.currentPageIndex.value == 0
+              ? const NeverScrollableScrollPhysics()
+              : const ClampingScrollPhysics(),
+          controller: _pageController,
+          itemCount: _appBarList.length,
+          itemBuilder: ((context, index) {
+            switch (index) {
+              case 0:
+                return GoogleMapsView();
+              case 1:
+                return SelectionView();
+              case 2:
+                // Migratin agent view
+                return Container();
+              case 3:
+                // User profile view
+                return Container();
+              default:
+                return GoogleMapsView();
+            }
+          }),
+          onPageChanged: (index) {
+            navigationController.setCurrentPageIndex(index);
+          },
+        ),
+        bottomNavigationBar: MyCustomBottomNavigtionBar(
+          currentIndex: navigationController.currentPageIndex.value,
+          onClick: (selectedPageIndex) {
+            navigationController.setCurrentPageIndex(selectedPageIndex);
+            _pageController.animateToPage(
+              navigationController.currentPageIndex.value,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          },
+        ),
       ),
     );
   }
