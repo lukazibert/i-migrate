@@ -18,14 +18,17 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           data: ThemeData(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent),
-          child: leadingIcon),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: leadingIcon,
+          )),
       actions: [
         Theme(
             data: ThemeData(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent),
             child: Padding(
-              padding: const EdgeInsets.only(right: 21.0),
+              padding: const EdgeInsets.only(right: 15.0),
               child: tailIcon,
             ))
       ],
