@@ -44,8 +44,9 @@ class _CountryInfoState extends State<CountryInfo>
             ),
             color: Color(0xFFC1C1C1),
             onPressed: () {
-              Get.to(CoutryInfoView());
-              // late closeSearch();
+              Get.to(CoutryInfoView(
+                showAddCountryIcon: true,
+              ));
             },
           ),
         ],
@@ -107,10 +108,6 @@ class _CountryInfoState extends State<CountryInfo>
       builder: (context, child) {
         return Opacity(
           opacity: _animation.value,
-          // child: Transform.translate(
-          //   offset: Offset(0, 50 * (1 - _animation.value)),
-          //   child: child,
-          // ),
           child: child,
         );
       },
