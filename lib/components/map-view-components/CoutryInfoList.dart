@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'CountryNameCard.dart';
+import '../cards/CountryNameCard.dart';
 import '../../controllers/GoogleMapViewController.dart';
 
 class CoutryInfoList extends StatelessWidget {

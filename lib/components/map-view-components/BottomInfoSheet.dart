@@ -21,57 +21,18 @@ class BottomInfoSheet extends StatelessWidget {
               !mapViewController.showCoutryList.value &&
               details.velocity.pixelsPerSecond.dy < 0) {
             mapViewController.setFullSpecificCountryView(true);
-            Future.delayed(Duration(milliseconds: 350), () {
-              Get.to(() => CoutryInfoView());
+            Future.delayed(const Duration(milliseconds: 350), () {
+              Get.to(() => CoutryInfoView(
+                    showAddCountryIcon: true,
+                  ));
               mapViewController.resetState();
             });
           } else if (details.velocity.pixelsPerSecond.dy < 0) {
             mapViewController.openSearch();
           } else if (details.velocity.pixelsPerSecond.dy > 0) {
             mapViewController.closeSearch();
-            // mapViewController.clearSearchInput();
-            // mapViewController.showSearch();
-            // mapViewController.setCoutryInfo(false);
           }
         },
-        // onVerticalDragStart: (details) {
-        //   mapViewController.setSheetStartY(details.globalPosition.dy);
-        // },
-        // onVerticalDragUpdate: (details) {
-        //   // if (mapViewController.bottomSheetOpen.value &&
-        //   //     mapViewController.sheetStartY.value >
-        //   //         mapViewController.sheetCurrentY.value) {
-        //   //   // mapViewController.setWholeInfo(true);
-        //   //   // mapViewController.hideSearch();
-        //   //   Get.to(CoutryInfoView());
-        //   // }
-
-        //   mapViewController.setSheetCurrentY(details.globalPosition.dy);
-        //   if (mapViewController.bottomSheetOpen.value &&
-        //       mapViewController.sheetStartY.value >
-        //           mapViewController.sheetCurrentY.value &&
-        //       mapViewController.sheetStartY.value -
-        //               mapViewController.sheetCurrentY.value >
-        //           500) {
-        //     // mapViewController.setWholeInfo(true);
-        //     // mapViewController.hideSearch();
-        //     // Get.to(CoutryInfoView());
-        //     print("up");
-        //   }
-        //   if (mapViewController.sheetStartY.value >
-        //       mapViewController.sheetCurrentY.value) {
-        //     mapViewController.openSearch();
-        //   }
-
-        //   if (mapViewController.bottomSheetOpen.value &&
-        //       mapViewController.sheetStartY.value <
-        //           mapViewController.sheetCurrentY.value) {
-        //     mapViewController.closeSearch();
-        //     mapViewController.clearSearchInput();
-        //     mapViewController.showSearch();
-        //     mapViewController.setCoutryInfo(false);
-        //   }
-        // },
         child: Obx(() => AnimatedContainer(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,

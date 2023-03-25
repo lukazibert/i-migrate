@@ -69,6 +69,8 @@ flutter:
     - lib/assets/Icons/Arrow icon.png
     - lib/assets/Icons/Plus icon.png
     - lib/assets/Icons/Search icon.png
+    - lib/assets/Icons/Selected icon.png
+    - "lib/assets/Avatars/3d_avatar_1.png"
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
