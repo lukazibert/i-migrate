@@ -40,7 +40,7 @@ class ProfileView extends StatelessWidget {
                   "Mumbai, India",
                   style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: 24,
                       fontFamily: "Alegreya Sans",
                       fontWeight: FontWeight.w300,
                       overflow: TextOverflow.visible),
