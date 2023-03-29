@@ -3,6 +3,7 @@ import 'package:i_migrate/controllers/NavigationController.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/ProfileView.dart';
+import 'package:i_migrate/views/MigrationAgentView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
 import 'components/CustomBottomNavigationBar.dart';
@@ -63,7 +64,7 @@ class Composition extends StatelessWidget {
             iconSize: 28.0,
           )),
       CustomAppBar(
-        title: "Migration Agent",
+        title: "",
         leadingIcon: const SizedBox(
           width: 28,
           height: 28,
@@ -104,7 +105,7 @@ class Composition extends StatelessWidget {
                 return SelectionView();
               case 2:
                 // Migratin agent view
-                return Container();
+                return MigrationAgentView();
               case 3:
                 // User profile view
                 return ProfileView();
