@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:i_migrate/controllers/NavigationController.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
-import 'package:i_migrate/views/GoogleMapsView.dart';
+
+import 'package:i_migrate/views/Authentication/Login.dart';
+import 'package:i_migrate/views/Authentication/Register.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
 import 'components/CustomBottomNavigationBar.dart';
@@ -25,8 +27,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Composition extends StatelessWidget {
-  Composition({super.key});
+class Composition extends StatefulWidget {
+  Composition({
+    super.key,
+  });
+
+  @override
+  State<Composition> createState() => _CompositionState();
+}
+
+class _CompositionState extends State<Composition> {
+  bool authenticated = false;
+  String registerOrLogin = 'register';
+  List<Map> regiterdUsers = [
+    {'name': 'd', 'email': 'd@gmail.com', 'password': 'd'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'}
+  ];
+
+  void initState() {
+    super.initState();
+  }
 
   final navigationController = Get.put(NavigationController());
 
@@ -66,18 +88,64 @@ class Composition extends StatelessWidget {
         width: 28,
         height: 28,
       ),
-    )
+    ),
   ];
 
   final PageController _pageController = PageController(initialPage: 0);
 
   // bool _disableScroll = false;
+  isLogedin(widget) {
+    if (true) {
+      return widget;
+    } else {
+      if (registerOrLogin == 'register') {
+        return Register(onClick: (selectedPageIndex) {
+          navigationController.setCurrentPageIndex(selectedPageIndex);
+          _pageController.animateToPage(
+            navigationController.currentPageIndex.value,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }, toLogin: () {
+          setState(() {
+            registerOrLogin = 'login';
+          });
+        }, onRegister: (user) {
+          setState(() {
+            regiterdUsers.add(user);
+            registerOrLogin = 'login';
+          });
+        });
+      } else {
+        return Login(
+            onClick: (selectedPageIndex) {
+              navigationController.setCurrentPageIndex(selectedPageIndex);
+              _pageController.animateToPage(
+                navigationController.currentPageIndex.value,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+            toRegister: () {
+              setState(() {
+                registerOrLogin = 'register';
+              });
+            },
+            onLogin: () {
+              setState(() {
+                authenticated = true;
+              });
+            },
+            regiterdUsers: regiterdUsers);
+      }
+    }
+  }
 
   // @override
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
+      () => isLogedin(Scaffold(
         appBar: _appBarList[navigationController.currentPageIndex.value],
         body: PageView.builder(
           physics: navigationController.currentPageIndex.value == 0
@@ -97,6 +165,14 @@ class Composition extends StatelessWidget {
               case 3:
                 // User profile view
                 return Container();
+              // return Register(onClick: (selectedPageIndex) {
+              //   navigationController.setCurrentPageIndex(selectedPageIndex);
+              //   _pageController.animateToPage(
+              //     navigationController.currentPageIndex.value,
+              //     duration: const Duration(milliseconds: 300),
+              //     curve: Curves.easeInOut,
+              //   );
+              // });
               default:
                 return GoogleMapsView();
             }
@@ -116,7 +192,7 @@ class Composition extends StatelessWidget {
             );
           },
         ),
-      ),
+      )),
     );
   }
 }
