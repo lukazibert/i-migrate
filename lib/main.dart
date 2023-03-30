@@ -5,6 +5,7 @@ import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/GreetingView.dart';
 import 'package:i_migrate/views/InterviewView.dart';
 import 'package:i_migrate/views/LoadingView.dart';
+import 'package:i_migrate/views/MigrationAgentView.dart';
 import 'package:i_migrate/views/ProfileView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
@@ -115,7 +116,7 @@ class _CompositionState extends State<Composition> {
                       return SelectionView();
                     case 2:
                       // Migratin agent view
-                      return Container();
+                      return MigrationAgentView();
                     case 3:
                       // User profile view
                       return ProfileView();
