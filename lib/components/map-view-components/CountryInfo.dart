@@ -20,58 +20,6 @@ class _CountryInfoState extends State<CountryInfo>
 
   late final Animation<double> _animation;
 
-  List<Widget> components = [
-    Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 28.0,
-            height: 28.0,
-          ),
-          Text(
-            "Germany",
-            style: TextStyle(
-                fontSize: 40,
-                fontFamily: "Alegreya Sans",
-                overflow: TextOverflow.visible),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.info_outline,
-              size: 28,
-            ),
-            color: Color(0xFFC1C1C1),
-            onPressed: () {
-              Get.to(CoutryInfoView(
-                showAddCountryIcon: true,
-              ));
-            },
-          ),
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: BulletPointCard(
-        index: 0,
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: BulletPointCard(
-        index: 0,
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: BulletPointCard(
-        index: 0,
-      ),
-    ),
-  ];
-
   final mapViewController = Get.put(MapViewController());
 
   closeSearch() {
@@ -102,6 +50,62 @@ class _CountryInfoState extends State<CountryInfo>
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> components = [
+      Padding(
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 28.0,
+              height: 28.0,
+            ),
+            Text(
+              "Germany",
+              style: TextStyle(
+                  fontSize: 40,
+                  fontFamily: "Alegreya Sans",
+                  overflow: TextOverflow.visible),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                size: 28,
+              ),
+              color: Color(0xFFC1C1C1),
+              onPressed: () {
+                mapViewController.setFullSpecificCountryView(true);
+                Future.delayed(const Duration(milliseconds: 350), () {
+                  Get.to(() => CoutryInfoView(
+                        showAddCountryIcon: true,
+                      ));
+                  mapViewController.resetState();
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: BulletPointCard(
+          index: 0,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: BulletPointCard(
+          index: 0,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: BulletPointCard(
+          index: 0,
+        ),
+      ),
+    ];
+
     return Expanded(
         child: AnimatedBuilder(
       animation: _animation,

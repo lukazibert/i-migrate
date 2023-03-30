@@ -40,6 +40,7 @@ dependencies:
   location: ^4.4.0
   permission: ^0.1.7
   get: ^4.6.5
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - lib/assets/Icons/Search icon.png
     - lib/assets/Icons/Selected icon.png
     - "lib/assets/Avatars/3d_avatar_1.png"
+    - "lib/assets/only birdy.png"
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -87,6 +89,7 @@ flutter:
   fonts:
     - family: Alegreya Sans
       fonts:
+        - asset: lib/fonts/AlegreyaSans-Regular.ttf
         - asset: lib/fonts/AlegreyaSans-Bold.ttf
         - asset: lib/fonts/AlegreyaSans-Medium.ttf
           weight: 500
