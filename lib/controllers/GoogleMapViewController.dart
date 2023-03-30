@@ -57,7 +57,7 @@ class MapViewController extends GetxController {
   setFullSpecificCountryView(bool val) => fullSpecificCountryView(true);
 
   //  Idicates which country from the data array is being utilized.
-  final selectedCOutryIndex = 0.obs;
+  final selectedCoutryIndex = 0.obs;
 
   openSearch() {
     searchButtonExpanded(true);
@@ -82,6 +82,12 @@ class MapViewController extends GetxController {
     showCoutryList(true);
     clearSearchInputField();
     fullSpecificCountryView(false);
+  }
+
+  focusCoutry() {
+    searchButtonVisible(false);
+    sheetExpanded(true);
+    showCoutryList(false);
   }
 
   //  Google Maps

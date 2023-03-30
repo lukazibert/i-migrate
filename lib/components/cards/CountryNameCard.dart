@@ -25,6 +25,9 @@ class _CountryNameCardState extends State<CountryNameCard>
     zoom: 6.8,
   );
 
+  final finalGermanyCameraPosition =
+      CameraPosition(target: LatLng(42.165691, 10.451526), zoom: 5);
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +54,7 @@ class _CountryNameCardState extends State<CountryNameCard>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        mapViewController.animateCamera(slovaniaCameraPosition);
+        mapViewController.animateCamera(finalGermanyCameraPosition);
         mapViewController.selectSpecificCountry();
       },
       child: AnimatedBuilder(

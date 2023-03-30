@@ -4,11 +4,15 @@ import 'package:i_migrate/views/GoogleMapsView.dart';
 
 import 'package:i_migrate/views/Authentication/Login.dart';
 import 'package:i_migrate/views/Authentication/Register.dart';
+import 'package:i_migrate/views/GoogleMapsView.dart';
+import 'package:i_migrate/views/ProfileView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
 import 'components/CustomBottomNavigationBar.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
+
+import 'controllers/SelectionViewController.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,45 +55,7 @@ class _CompositionState extends State<Composition> {
   }
 
   final navigationController = Get.put(NavigationController());
-
-  final List<CustomAppBar?> _appBarList = [
-    null,
-    CustomAppBar(
-        title: "Selection",
-        leadingIcon: const SizedBox(
-          width: 28,
-          height: 28,
-        ),
-        tailIcon: IconButton(
-          icon: Image.asset(
-            'lib/assets/Icons/CompareIcon.png',
-          ),
-          onPressed: () {},
-          iconSize: 28.0,
-        )),
-    CustomAppBar(
-      title: "Migration Agent",
-      leadingIcon: const SizedBox(
-        width: 28,
-        height: 28,
-      ),
-      tailIcon: const SizedBox(
-        width: 28,
-        height: 28,
-      ),
-    ),
-    CustomAppBar(
-      title: "User Profile",
-      leadingIcon: const SizedBox(
-        width: 28,
-        height: 28,
-      ),
-      tailIcon: const SizedBox(
-        width: 28,
-        height: 28,
-      ),
-    ),
-  ];
+  final selectionController = Get.put(SelectionViewController());
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -144,6 +110,52 @@ class _CompositionState extends State<Composition> {
   // @override
   @override
   Widget build(BuildContext context) {
+    final List<CustomAppBar?> _appBarList = [
+      null,
+      CustomAppBar(
+          title: "Selection",
+          leadingIcon: const SizedBox(
+            width: 28,
+            height: 28,
+          ),
+          tailIcon: IconButton(
+            icon: Image.asset(
+              'lib/assets/Icons/CompareIcon.png',
+            ),
+            onPressed: () {
+              if (selectionController.isComparing.value) {
+                selectionController.stopComparing();
+              } else {
+                selectionController.startComparing();
+              }
+            },
+            iconSize: 28.0,
+          )),
+      CustomAppBar(
+        title: "Migration Agent",
+        leadingIcon: const SizedBox(
+          width: 28,
+          height: 28,
+        ),
+        tailIcon: const SizedBox(
+          width: 28,
+          height: 28,
+        ),
+      ),
+      // CustomAppBar(
+      //   title: "User Profile",
+      //   leadingIcon: const SizedBox(
+      //     width: 28,
+      //     height: 28,
+      //   ),
+      //   tailIcon: const SizedBox(
+      //     width: 28,
+      //     height: 28,
+      //   ),
+      // )
+      null
+    ];
+
     return Obx(
       () => isLogedin(Scaffold(
         appBar: _appBarList[navigationController.currentPageIndex.value],
@@ -151,7 +163,7 @@ class _CompositionState extends State<Composition> {
           physics: navigationController.currentPageIndex.value == 0
               ? const NeverScrollableScrollPhysics()
               : const ClampingScrollPhysics(),
-          controller: _pageController,
+          controller: navigationController.pageController.value,
           itemCount: _appBarList.length,
           itemBuilder: ((context, index) {
             switch (index) {
@@ -164,28 +176,21 @@ class _CompositionState extends State<Composition> {
                 return Container();
               case 3:
                 // User profile view
-                return Container();
-              // return Register(onClick: (selectedPageIndex) {
-              //   navigationController.setCurrentPageIndex(selectedPageIndex);
-              //   _pageController.animateToPage(
-              //     navigationController.currentPageIndex.value,
-              //     duration: const Duration(milliseconds: 300),
-              //     curve: Curves.easeInOut,
-              //   );
-              // });
+                return ProfileView();
               default:
                 return GoogleMapsView();
             }
           }),
           onPageChanged: (index) {
             navigationController.setCurrentPageIndex(index);
+            selectionController.stopComparing();
           },
         ),
         bottomNavigationBar: MyCustomBottomNavigtionBar(
           currentIndex: navigationController.currentPageIndex.value,
           onClick: (selectedPageIndex) {
             navigationController.setCurrentPageIndex(selectedPageIndex);
-            _pageController.animateToPage(
+            navigationController.pageController.value.animateToPage(
               navigationController.currentPageIndex.value,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,

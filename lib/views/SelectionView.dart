@@ -1,6 +1,12 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+// import 'package:i_migrate/components/cards/CoutryComparisonCard.dart';
+import 'package:i_migrate/controllers/SelectionViewController.dart';
+
+import '../components/CustomButton.dart';
+import '../components/cards/CountrySelectionCard.dart';
 
 class SelectionView extends StatefulWidget {
   SelectionView({

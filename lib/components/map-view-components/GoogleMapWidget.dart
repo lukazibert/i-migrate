@@ -23,13 +23,6 @@ class GoogleMapWidget extends StatelessWidget {
       onMapCreated: _onMapCreated,
       myLocationButtonEnabled: false,
       myLocationEnabled: true,
-      // polylines: {
-      //   Polyline(
-      //       color: Colors.red,
-      //       width: 3,
-      //       polylineId: PolylineId("Slovenia"),
-      //       points: mapViewController.sloveniaCoordinates)
-      // },
       initialCameraPosition: const CameraPosition(
         target: LatLng(48.8588443, 2.2943506),
         zoom: 4.0,
@@ -37,12 +30,16 @@ class GoogleMapWidget extends StatelessWidget {
       markers: {
         // Add a marker for Slovenia
         Marker(
-          markerId: const MarkerId("Slovenia"),
-          position: const LatLng(46.151241, 14.995463),
-          infoWindow: const InfoWindow(title: "Slovenia"),
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-        ),
+            markerId: const MarkerId("Slovenia"),
+            position: const LatLng(46.151241, 14.995463),
+            infoWindow: const InfoWindow(title: "Slovenia"),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen),
+            onTap: () {
+              mapViewController.focusCoutry();
+              mapViewController.animateCamera(
+                  CameraPosition(target: LatLng(43.7, 14.995463), zoom: 6.8));
+            }),
         // Add a marker for Germany
         Marker(
           markerId: const MarkerId("Germany"),
@@ -50,6 +47,11 @@ class GoogleMapWidget extends StatelessWidget {
           infoWindow: const InfoWindow(title: "Germany"),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          onTap: () {
+            mapViewController.focusCoutry();
+            mapViewController.animateCamera(
+                CameraPosition(target: LatLng(42.165691, 10.451526), zoom: 5));
+          },
         ),
         // Add a marker for UK
         Marker(
@@ -58,6 +60,11 @@ class GoogleMapWidget extends StatelessWidget {
           infoWindow: const InfoWindow(title: "UK"),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          onTap: () {
+            mapViewController.focusCoutry();
+            mapViewController.animateCamera(CameraPosition(
+                target: LatLng(27.378051, -3.435973), zoom: 3.5));
+          },
         ),
       },
     );
