@@ -105,7 +105,7 @@ class InterviewController extends GetxController {
           "Lawyer",
           "Manager",
         ],
-        "selectedIndex": null
+        "selectedIndex": 0
       }
     ]);
     // List temp = await getCountries();

@@ -238,6 +238,9 @@ class DropdownQuestion extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: DropdownMenu<String>(
+        onSelected: (String? country) {
+          interviewController.setDataEntered(true);
+        },
         menuHeight: MediaQuery.of(context).size.height * 0.6,
         width: MediaQuery.of(context).size.width * 0.84,
         controller: iconController,
@@ -255,7 +258,6 @@ class DropdownQuestion extends StatelessWidget {
             )),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFF4F7E93), width: 2.0))),
-        onSelected: (String? country) {},
       ),
     );
   }
@@ -303,10 +305,8 @@ class MultichoiceWrapQuestion extends StatelessWidget {
                 //     ? Color(0xFF4F7E93)
                 //     : Colors.grey[400],
                 selected: interviewController.interviewQuestions[index]
-                            ["selectedIndex"] ==
-                        i
-                    ? true
-                    : false,
+                        ["selectedIndex"] ==
+                    i,
                 onSelected: (bool selected) {
                   print(selected);
                   interviewController.setSelectedIndex(index, i);
