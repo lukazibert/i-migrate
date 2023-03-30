@@ -523,12 +523,12 @@ class Compare extends StatelessWidget {
                 Tab(icon: Icon(Icons.food_bank)),
                 Tab(icon: Icon(Icons.emoji_transportation)),
                 Tab(icon: Icon(Icons.dangerous)),
-                Tab(icon: Icon(Icons.sports)),
+                Tab(icon: Icon(Icons.sports_football)),
                 Tab(icon: Icon(Icons.child_care)),
-                Tab(icon: Icon(Icons.ramen_dining_sharp)),
+                Tab(icon: Icon(Icons.checkroom)),
                 Tab(icon: Icon(Icons.house)),
                 Tab(icon: Icon(Icons.apartment)),
-                Tab(icon: Icon(Icons.money)),
+                Tab(icon: Icon(Icons.attach_money)),
               ],
             ),
           ),
@@ -545,7 +545,7 @@ class Compare extends StatelessWidget {
                   title: 'Transportation'),
               ComparingPage(
                   selectedComparingCountries: selectedComparingCountries,
-                  title: 'Utilities (Monthly'),
+                  title: 'Utilities (Monthly)'),
               ComparingPage(
                   selectedComparingCountries: selectedComparingCountries,
                   title: 'Sports And Leisure'),
@@ -575,25 +575,32 @@ class Compare extends StatelessWidget {
 class ComparingPage extends StatelessWidget {
   String title = '';
   List<Map> selectedComparingCountries = [];
-  List values = [];
+  List<DataRow> table = [];
   ComparingPage(
       {super.key,
       required this.title,
       required this.selectedComparingCountries}) {
-    print('------------------------------------------------------');
-    print(selectedComparingCountries[0][title].runtimeType);
-    if (!selectedComparingCountries[0][title]?.keys.isEmpty) {
+    if (selectedComparingCountries[0][title] != null) {
       for (var key in selectedComparingCountries[0][title].keys) {
-        print(key);
-        print('key');
-        print(selectedComparingCountries[0][title][key]);
-        values.add(
+        table.add(
           DataRow(cells: [
             DataCell(Text(key)),
-            DataCell(
-                Text(selectedComparingCountries[0][title][key].toString())),
-            DataCell(
-                Text(selectedComparingCountries[1][title][key].toString())),
+            DataCell(Align(
+              alignment: Alignment
+                  .center, // Align however you like (i.e .centerRight, centerLeft)
+              child: Text(
+                "${selectedComparingCountries[0][title][key]}\$",
+                textAlign: TextAlign.center,
+              ),
+            )),
+            DataCell(Align(
+              alignment: Alignment
+                  .center, // Align however you like (i.e .centerRight, centerLeft)
+              child: Text(
+                "${selectedComparingCountries[1][title][key]}\$",
+                textAlign: TextAlign.center,
+              ),
+            )),
           ]),
         );
       }
@@ -615,38 +622,23 @@ class ComparingPage extends StatelessWidget {
             DataColumn(
                 label: Text('',
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+                        TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
             DataColumn(
-                label: Text(selectedComparingCountries[0]['name'],
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+                label: Text(
+              selectedComparingCountries[0]['name'],
+              style: TextStyle(fontSize: 18),
+              softWrap: true,
+              maxLines: 1,
+            )),
             DataColumn(
-                label: Text(selectedComparingCountries[1]['name'],
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+                label: Text(
+              selectedComparingCountries[1]['name'],
+              style: TextStyle(fontSize: 18),
+              softWrap: true,
+              maxLines: 1,
+            )),
           ],
-          rows: const [
-            DataRow(cells: [
-              DataCell(Text('1')),
-              DataCell(Text('Stephen')),
-              DataCell(Text('Actor')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('5')),
-              DataCell(Text('John')),
-              DataCell(Text('Student')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('10')),
-              DataCell(Text('Harry')),
-              DataCell(Text('Leader')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('15')),
-              DataCell(Text('Peter')),
-              DataCell(Text('Scientist')),
-            ]),
-          ],
+          rows: table,
         ),
       ])),
     );

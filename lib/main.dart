@@ -95,7 +95,7 @@ class _CompositionState extends State<Composition> {
 
   // bool _disableScroll = false;
   isLogedin(widget) {
-    if (true) {
+    if (authenticated) {
       return widget;
     } else {
       if (registerOrLogin == 'register') {
