@@ -14,9 +14,18 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/location/macos
 
 SPEC CHECKSUMS:
+<<<<<<< HEAD
   FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
   location: 7cdb0665bd6577d382b0a343acdadbcb7f964775
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
 
 COCOAPODS: 1.11.3
+=======
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  location: 7cdb0665bd6577d382b0a343acdadbcb7f964775
+
+PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
+
+COCOAPODS: 1.12.0
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec

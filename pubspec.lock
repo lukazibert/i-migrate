@@ -74,7 +74,11 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
+<<<<<<< HEAD
       sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
+=======
+      sha256: "60fc7b78455b94e6de2333d2f95196d32cf5c22f4b0b0520a628804cb463503b"
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
@@ -100,7 +104,11 @@ packages:
     dependency: "direct main"
     description:
       name: google_maps_flutter
+<<<<<<< HEAD
       sha256: "24392ef192f3b00bcd93151375676805a9933574423a5bd5509a0ead2e8a4215"
+=======
+      sha256: "0c6b72b4b1e0f6204973e2b40868a75fe6380725d498f215cd7e35ed920d1c57"
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.2.5"
@@ -108,7 +116,11 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_android
+<<<<<<< HEAD
       sha256: ee3c1a63983b8ba17a9a7c1233c3542fbfbc0ebf540d3aa9b8fd5162681e0219
+=======
+      sha256: "4152d1ddf6393cb7de73c406e1a4feba343f15f7b85494354ebee69730daee53"
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.4.10"
@@ -116,7 +128,11 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_ios
+<<<<<<< HEAD
       sha256: e9ad74415a222573625a2c1717adc1e375b18e8ce660fc12db734d1bda1132d4
+=======
+      sha256: "33bbca8d4148ed373251ea2ec2344fdc63009926b6d6be71a0854fd42409b1ba"
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
@@ -124,7 +140,11 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_platform_interface
+<<<<<<< HEAD
       sha256: a07811d2b82055815ede75e1fe4b7b76f71a0b4820b26f71bdaddd157d6a3e20
+=======
+      sha256: "0967430c25240836b794d42336bd4c61f0e78e9fd33d1365fa9316bb36b6b410"
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.2.6"
@@ -236,7 +256,11 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
+<<<<<<< HEAD
       sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
+=======
+      sha256: dbf0f707c78beedc9200146ad3cb0ab4d5da13c246336987be6940f026500d3a
+>>>>>>> 9e7e9db59501fe0a7b7f7d416c0048d72b0b48ec
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"

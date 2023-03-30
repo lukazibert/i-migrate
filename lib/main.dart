@@ -6,6 +6,9 @@ import 'package:i_migrate/views/GreetingView.dart';
 import 'package:i_migrate/views/InterviewView.dart';
 import 'package:i_migrate/views/LoadingView.dart';
 import 'package:i_migrate/views/MigrationAgentView.dart';
+import 'package:i_migrate/views/Authentication/Login.dart';
+import 'package:i_migrate/views/Authentication/Register.dart';
+import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/ProfileView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
 import 'components/CustomAppBar.dart';
@@ -40,6 +43,15 @@ class Composition extends StatefulWidget {
 }
 
 class _CompositionState extends State<Composition> {
+  bool authenticated = false;
+  String registerOrLogin = 'register';
+  List<Map> regiterdUsers = [
+    {'name': 'd', 'email': 'd@gmail.com', 'password': 'd'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'},
+    {'name': 'dorde', 'email': 'dorde@gmail.com', 'password': '123'}
+  ];
+
   final navigationController = Get.put(NavigationController());
 
   final selectionController = Get.put(SelectionViewController());
@@ -57,6 +69,56 @@ class _CompositionState extends State<Composition> {
         isLoading = false;
       });
     });
+  }
+
+  final PageController _pageController = PageController(initialPage: 0);
+
+  // bool _disableScroll = false;
+  isLogedin(widget) {
+    if (authenticated) {
+      return widget;
+    } else {
+      if (registerOrLogin == 'register') {
+        return Register(onClick: (selectedPageIndex) {
+          navigationController.setCurrentPageIndex(selectedPageIndex);
+          _pageController.animateToPage(
+            navigationController.currentPageIndex.value,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }, toLogin: () {
+          setState(() {
+            registerOrLogin = 'login';
+          });
+        }, onRegister: (user) {
+          setState(() {
+            regiterdUsers.add(user);
+            registerOrLogin = 'login';
+          });
+        });
+      } else {
+        return Login(
+            onClick: (selectedPageIndex) {
+              navigationController.setCurrentPageIndex(selectedPageIndex);
+              _pageController.animateToPage(
+                navigationController.currentPageIndex.value,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+            toRegister: () {
+              setState(() {
+                registerOrLogin = 'register';
+              });
+            },
+            onLogin: () {
+              setState(() {
+                authenticated = true;
+              });
+            },
+            regiterdUsers: regiterdUsers);
+      }
+    }
   }
 
   // @override
@@ -97,10 +159,12 @@ class _CompositionState extends State<Composition> {
       null
     ];
 
-    return isLoading
-        ? LoadingView()
-        : Obx(
-            () => Scaffold(
+    return Obx(
+      () => isLoading
+          ? LoadingView()
+          :
+          // isLogedin(
+          Scaffold(
               appBar: _appBarList[navigationController.currentPageIndex.value],
               body: PageView.builder(
                 physics: navigationController.currentPageIndex.value == 0
@@ -127,7 +191,6 @@ class _CompositionState extends State<Composition> {
                 onPageChanged: (index) {
                   navigationController.setCurrentPageIndex(index);
                   selectionController.stopComparing();
-                  mapViewController.resetState();
                 },
               ),
               bottomNavigationBar: MyCustomBottomNavigtionBar(
@@ -142,6 +205,7 @@ class _CompositionState extends State<Composition> {
                 },
               ),
             ),
-          );
+      // ),
+    );
   }
 }
