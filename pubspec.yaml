@@ -74,6 +74,7 @@ flutter:
     - lib/assets/Icons/Selected icon.png
     - "lib/assets/Avatars/3d_avatar_1.png"
     - "lib/assets/only birdy.png"
+    - "lib/assets/Icons/logo googleg 48dp.png"
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

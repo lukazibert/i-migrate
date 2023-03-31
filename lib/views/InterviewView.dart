@@ -109,7 +109,10 @@ class Question extends StatelessWidget {
                     onTap: () {
                       interviewController.pageController.value.page!.toInt() ==
                               interviewController.interviewQuestions.length - 1
-                          ? Get.to(Composition())
+                          ? {
+                              Get.to(Composition()),
+                              navigationController.setCurrentPageIndex(0)
+                            }
                           : interviewController.pageController.value
                               .animateToPage(
                                   interviewController.pageController.value.page!
@@ -124,7 +127,7 @@ class Question extends StatelessWidget {
                     onTap: (() {
                       interviewController.pageController.value.page!.toInt() ==
                               interviewController.interviewQuestions.length - 1
-                          ? Get.to(Composition())
+                          ? Get.to(MainView())
                           : interviewController.pageController.value
                               .animateToPage(
                                   interviewController.pageController.value.page!

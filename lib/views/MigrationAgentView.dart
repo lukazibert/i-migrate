@@ -21,10 +21,13 @@ class MigrationAgentView extends StatelessWidget {
               AgentInfoCard(
                 title: 'Pre Requirements',
                 items: [
-                  "Placeholder 1",
-                  "Placeholder 2",
-                  "Placeholder 3",
-                  "Placeholder 4",
+                  "Acceptance at a German university",
+                  "Financial means",
+                  "Health insurance",
+                  "Language proficiency",
+                  // "Educational qualifications",
+                  // "Clean criminal record",
+                  // "Application fee"
                 ],
                 onContinuePressed: () {
                   Navigator.push(
@@ -40,17 +43,36 @@ class MigrationAgentView extends StatelessWidget {
               AgentInfoCard(
                 title: 'Visa Application Projects',
                 items: [
-                  "Placeholder 1",
-                  "Placeholder 2",
-                  "Placeholder 3",
-                  "Placeholder 4",
+                  "Gather the required documents",
+                  "Make an appointment",
+                  "Attend the visa appointment",
+                  "Wait for your visa to be processed",
                 ],
                 onContinuePressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          TaskDetailsPage(title: 'Visa Application Projects'),
+                          TaskDetailsPage(title: 'Visa Appointment'),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              AgentInfoCard(
+                title: 'Learn befoure you go',
+                items: [
+                  "FInd sutable housing",
+                  "Look for a job",
+                  "Popular cities",
+                  "Public transportation",
+                ],
+                onContinuePressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TaskDetailsPage(title: 'Learn befoure you go'),
                     ),
                   );
                 },

@@ -99,10 +99,6 @@ class _AgentInfoCardState extends State<AgentInfoCard> {
                           onTap: widget.onContinuePressed,
                           text: "Continue",
                         )
-                        // TextButton(
-                        //   onPressed: widget.onContinuePressed,
-                        //   child: Text("Continue"),
-                        // ),
                       ],
                     )
                   : SizedBox(),

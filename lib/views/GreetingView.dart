@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_migrate/components/CustomButton.dart';
+import 'package:i_migrate/main.dart';
 
 class GreetingView extends StatelessWidget {
   const GreetingView({super.key});
@@ -89,7 +91,9 @@ class GreetingView extends StatelessWidget {
                   width: 15,
                 ),
                 GestureDetector(
-                  onTap: (() {}),
+                  onTap: (() {
+                    Get.to(MainView());
+                  }),
                   child: Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -99,7 +103,7 @@ class GreetingView extends StatelessWidget {
                         ),
                         border: Border.all(
                           color: Color(0xFFC8C8C8),
-                          width: 1,
+                          width: 2,
                         )),
                     child: Center(
                       child: Text(
