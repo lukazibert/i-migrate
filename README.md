@@ -27,4 +27,4 @@ To get started with MyApp, follow these steps:
 * Clone this repository to your local machine using git clone https://github.com/lukazibert/i-migrate
 * Navigate to the project directory using cd i_migrate
 * Run flutter pub get to install the required dependencies
-* Run flutter run to launch the app on your device or emulator
+* Run flutter run to launch the app on your device or emulator (UI is optimised for IPhone 14 Pro Max)
