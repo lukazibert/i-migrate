@@ -62,7 +62,7 @@ class MigrationAgentView extends StatelessWidget {
               AgentInfoCard(
                 title: 'Learn befoure you go',
                 items: [
-                  "FInd sutable housing",
+                  "Find sutable housing",
                   "Look for a job",
                   "Popular cities",
                   "Public transportation",

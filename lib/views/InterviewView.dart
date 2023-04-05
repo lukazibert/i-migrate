@@ -26,14 +26,17 @@ class InterviewView extends StatelessWidget {
             height: 28.0,
           ),
           onPressed: () {
+            if (interviewController.pageController.value.page!.toInt() == 0) {
+              Get.back();
+            }
             interviewController.pageController.value.animateToPage(
                 interviewController.pageController.value.page!.toInt() - 1,
-                duration: Duration(milliseconds: 400),
+                duration: const Duration(milliseconds: 400),
                 curve: Curves.easeOut);
           },
         ),
         tailIcon: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.info_outline,
             size: 28,
           ),
@@ -43,12 +46,13 @@ class InterviewView extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: EdgeInsets.only(),
+        padding: const EdgeInsets.only(),
         child: PageView.builder(
             controller: interviewController.pageController.value,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: interviewController.interviewQuestions.length,
             itemBuilder: (context, index) {
+              print(index);
               return Question(index: index);
             }),
       ),
@@ -66,15 +70,15 @@ class Question extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      padding:
-          EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 50.0),
+      padding: const EdgeInsets.only(
+          left: 20.0, right: 20.0, top: 20.0, bottom: 50.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 15),
             decoration: BoxDecoration(
-              color: Color(0xFFE5E5E5),
+              color: const Color(0xFFE5E5E5),
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Column(
@@ -82,20 +86,12 @@ class Question extends StatelessWidget {
               children: [
                 Text(
                   interviewController.interviewQuestions[index]["question"]!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1.0,
-                  color: Colors.grey,
-                ),
-                SizedBox(
+                const SizedBox(
                   height: 15.0,
                 ),
                 QuestionType(index: index),
@@ -106,43 +102,67 @@ class Question extends StatelessWidget {
             () => (interviewController.dataEntered.value
                 ? CustomButton(
                     text: "Continue",
-                    onTap: () {
+                    onTap: () async {
                       interviewController.pageController.value.page!.toInt() ==
                               interviewController.interviewQuestions.length - 1
                           ? {
-                              Get.to(Composition()),
-                              navigationController.setCurrentPageIndex(0)
+                              print("last page"),
+                              Get.offAll(() => MainView()),
+                              interviewController.updateAnwsers(),
+                              navigationController.pageController.value
+                                  .jumpToPage(navigationController
+                                      .currentPageIndex.value),
+                              navigationController.refreshController(),
                             }
                           : interviewController.pageController.value
                               .animateToPage(
                                   interviewController.pageController.value.page!
                                           .toInt() +
                                       1,
-                                  duration: Duration(milliseconds: 400),
+                                  duration: const Duration(milliseconds: 400),
                                   curve: Curves.easeOut);
-                      interviewController.setDataEntered(false);
+                      await Future.delayed(const Duration(milliseconds: 400),
+                          () {
+                        interviewController.setDataEntered(false);
+                      });
                     },
                   )
                 : GestureDetector(
-                    onTap: (() {
+                    onTap: (() async {
                       interviewController.pageController.value.page!.toInt() ==
                               interviewController.interviewQuestions.length - 1
-                          ? Get.to(MainView())
+                          ? {
+                              Get.offAll(() => MainView()),
+                              interviewController.updateAnwsers(),
+                              navigationController.pageController.value
+                                  .jumpToPage(navigationController
+                                      .currentPageIndex.value),
+                              navigationController.refreshController(),
+                              // print(interviewController
+                              //         .pageController.value.page!
+                              //         .toInt() ==
+                              //     interviewController
+                              //             .interviewQuestions.length -
+                              //         1)
+                            }
                           : interviewController.pageController.value
                               .animateToPage(
                                   interviewController.pageController.value.page!
                                           .toInt() +
                                       1,
-                                  duration: Duration(milliseconds: 400),
+                                  duration: const Duration(milliseconds: 400),
                                   curve: Curves.easeOut);
-                      interviewController.setDataEntered(false);
+                      await Future.delayed(const Duration(milliseconds: 400),
+                          () {
+                        interviewController.setDataEntered(false);
+                      });
                     }),
                     child: Container(
                       height: 50,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(10.0),
                         ),
                         border: Border.all(
@@ -150,7 +170,7 @@ class Question extends StatelessWidget {
                           width: 2.0,
                         ),
                       ),
-                      child: Center(
+                      child: const Center(
                           child: Text("Skip",
                               style: TextStyle(
                                   color: Colors.grey,
@@ -176,46 +196,68 @@ class QuestionType extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (interviewController.interviewQuestions[index]["questionType"]) {
       case "text":
-        return TextInputQuestion();
+        return TextInputQuestion(
+          index: index,
+        );
       case "dropdown":
         return DropdownQuestion(
           index: index,
         );
       case "multipleChoice":
-        return MultichoiceQuestion();
+        return MultichoiceQuestion(
+          index: index,
+        );
       case "multipleChoiceWrap":
         return MultichoiceWrapQuestion(
           index: index,
         );
       default:
-        return TextInputQuestion();
+        return TextInputQuestion(
+          index: index,
+        );
     }
   }
 }
 
 class TextInputQuestion extends StatelessWidget {
-  const TextInputQuestion({super.key});
+  final int index;
+  const TextInputQuestion({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    print(interviewController.interviewQuestions[index]["anwser"]);
     return Container(
       width: double.infinity,
-      child: TextField(
-        onChanged: (value) {
-          if (value == "") {
-            interviewController.setDataEntered(false);
-          }
-          interviewController.setDataEntered(true);
-        },
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-            color: Color(0xFF4F7E93),
-            width: 2.0,
-          )),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF4F7E93), width: 2.0)),
-          labelText: 'Enter your answer',
+      child: Obx(
+        () => TextField(
+          controller: TextEditingController(
+              text: interviewController.interviewQuestions[index]["anwser"]),
+          cursorColor: const Color(0xFF4F7E93),
+          onTapOutside: (event) =>
+              FocusScope.of(context).requestFocus(new FocusNode()),
+          onChanged: (value) {
+            if (value == "") {
+              interviewController.setDataEntered(false);
+            }
+            interviewController.setDataEntered(true);
+            interviewController.interviewQuestions[index]["answer"] = value;
+          },
+          decoration: InputDecoration(
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Color(0xFF4F7E93),
+              width: 2.0,
+            )),
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF4F7E93), width: 2.0)),
+            labelText:
+                interviewController.interviewQuestions[index]["lable"] ?? "",
+            floatingLabelStyle: MaterialStateTextStyle.resolveWith(
+              (states) => const TextStyle(
+                color: Color(0xFF4F7E93),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -243,6 +285,8 @@ class DropdownQuestion extends StatelessWidget {
       child: DropdownMenu<String>(
         onSelected: (String? country) {
           interviewController.setDataEntered(true);
+          interviewController.setAnwser(index, country!);
+          FocusScope.of(context).requestFocus(new FocusNode());
         },
         menuHeight: MediaQuery.of(context).size.height * 0.6,
         width: MediaQuery.of(context).size.width * 0.84,
@@ -267,11 +311,37 @@ class DropdownQuestion extends StatelessWidget {
 }
 
 class MultichoiceQuestion extends StatelessWidget {
-  const MultichoiceQuestion({super.key});
+  final int index;
+  const MultichoiceQuestion({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Obx(
+        () => Column(
+          children: interviewController.interviewQuestions[index]["options"]
+              .map<Widget>(
+            (title) {
+              return Column(
+                children: [
+                  const SizedBox(height: 10.0),
+                  CustomChip(
+                    expanded: true,
+                    label: title,
+                    selected: interviewController.interviewQuestions[index]
+                            ["anwser"] ==
+                        title,
+                    onSelected: () {
+                      interviewController.setAnwser(index, title);
+                    },
+                  ),
+                ],
+              );
+            },
+          ).toList(),
+        ),
+      ),
+    );
   }
 }
 
@@ -281,43 +351,70 @@ class MultichoiceWrapQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        child: Wrap(
+    print(index);
+    return Container(
+      child: Obx(
+        () => Wrap(
           alignment: WrapAlignment.spaceBetween,
-          // spacing: 10.0,
-          runSpacing: 5.0,
+          spacing: 2.0,
+          runSpacing: 10.0,
           children: List<Widget>.generate(
             interviewController.interviewQuestions[index]["options"].length,
             (int i) {
-              return ChoiceChip(
-                label: Text(
-                  interviewController.interviewQuestions[index]["options"][i],
-                  style: TextStyle(
-                    color: interviewController.interviewQuestions[index]
-                                ["selectedIndex"] ==
-                            i
-                        ? Colors.white
-                        : Colors.black,
-                  ),
-                ),
-                selectedColor: Color(0xFF4F7E93),
-                // backgroundColor: interviewController.interviewQuestions[index]
-                //             ["selectedIndex"] ==
-                //         i
-                //     ? Color(0xFF4F7E93)
-                //     : Colors.grey[400],
+              final String title =
+                  interviewController.interviewQuestions[index]["options"][i];
+              return new CustomChip(
+                expanded: false,
+                label: title,
                 selected: interviewController.interviewQuestions[index]
-                        ["selectedIndex"] ==
-                    i,
-                onSelected: (bool selected) {
-                  print(selected);
-                  interviewController.setSelectedIndex(index, i);
-                  interviewController.setDataEntered(true);
+                        ["anwser"] ==
+                    title,
+                onSelected: () {
+                  interviewController.setAnwser(index, title);
                 },
               );
             },
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomChip extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final Function onSelected;
+  final bool expanded;
+  const CustomChip(
+      {super.key,
+      required this.label,
+      required this.selected,
+      required this.onSelected,
+      required this.expanded});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onSelected();
+      },
+      child: Container(
+        width: expanded ? double.infinity : null,
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 18,
+              fontFamily: "Alegreya Sans",
+              fontWeight: FontWeight.w500,
+              overflow: TextOverflow.visible),
+        ),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+        decoration: BoxDecoration(
+          color: selected ? const Color(0xFF4F7E93) : Colors.grey[350],
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
     );

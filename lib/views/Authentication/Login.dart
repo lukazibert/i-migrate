@@ -133,7 +133,7 @@ class Login extends StatelessWidget {
                   );
                 }
               },
-              text: "LOGIN"),
+              text: "Login"),
           SizedBox(
             height: 15,
           ),

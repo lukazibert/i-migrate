@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:i_migrate/controllers/GoogleMapViewController.dart';
 import 'package:i_migrate/controllers/NavigationController.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
@@ -11,6 +12,7 @@ import 'package:i_migrate/views/Authentication/Register.dart';
 import 'package:i_migrate/views/GoogleMapsView.dart';
 import 'package:i_migrate/views/ProfileView.dart';
 import 'package:i_migrate/views/SelectionView.dart';
+import 'package:i_migrate/views/VizaListAPI.dart';
 import 'components/CustomAppBar.dart';
 import 'components/CustomBottomNavigationBar.dart';
 import 'package:get/get.dart';
@@ -32,8 +34,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'i-migrate',
-      // home: InterviewView(),
       home: Composition(),
     );
   }
@@ -135,15 +137,7 @@ class _CompositionState extends State<Composition> {
 }
 
 class MainView extends StatelessWidget {
-  MainView({super.key
-      // required List<CustomAppBar?> appBarList,
-      // required this.navigationController,
-      // required this.selectionController,
-      });
-
-  // final List<CustomAppBar?> _appBarList;
-  // final NavigationController navigationController;
-  // final SelectionViewController selectionController;
+  MainView({super.key});
 
   @override
   Widget build(BuildContext context) {

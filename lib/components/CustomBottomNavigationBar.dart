@@ -34,27 +34,19 @@ class MyCustomBottomNavigtionBar extends StatelessWidget {
             NavigationBarItem(
                 onClick: () => onClick(0),
                 icon: Icons.map_outlined,
-                selected: navigationController.currentPageIndex.value == 0
-                    ? true
-                    : false),
+                selected: navigationController.currentPageIndex.value == 0),
             NavigationBarItem(
                 onClick: () => onClick(1),
                 icon: Icons.compare_arrows,
-                selected: navigationController.currentPageIndex.value == 1
-                    ? true
-                    : false),
+                selected: navigationController.currentPageIndex.value == 1),
             NavigationBarItem(
                 onClick: () => onClick(2),
                 icon: Icons.support_agent,
-                selected: navigationController.currentPageIndex.value == 2
-                    ? true
-                    : false),
+                selected: navigationController.currentPageIndex.value == 2),
             NavigationBarItem(
                 onClick: () => onClick(3),
                 icon: Icons.account_circle_outlined,
-                selected: navigationController.currentPageIndex.value == 3
-                    ? true
-                    : false),
+                selected: navigationController.currentPageIndex.value == 3),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:i_migrate/components/CustomAppBar.dart';
 
 import '../components/CustomButton.dart';
 import '../components/cards/CountrySelectionCard.dart';
@@ -32,64 +33,99 @@ class _CompareState extends State<Compare> {
     super.initState();
   }
 
+  List titles = [
+    'Restaurants',
+    'Markets',
+    'Transportation',
+    'Utilities',
+    'Leisure',
+    'Childcare',
+    'Clothing',
+    'Rent',
+    'Apartment Price',
+    'Salaries'
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 10,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xFF4F7E93),
-            bottom: const TabBar(
-              // labelColor: Color(0xFF4F7E93),
-              // overlayColor: Color(0xFF4F7E93),
-              // dividerColor: Color(0xFF4F7E93),
-              tabs: [
-                Tab(icon: Icon(Icons.restaurant)),
-                Tab(icon: Icon(Icons.food_bank)),
-                Tab(icon: Icon(Icons.emoji_transportation)),
-                Tab(icon: Icon(Icons.dangerous)),
-                Tab(icon: Icon(Icons.sports_football)),
-                Tab(icon: Icon(Icons.child_care)),
-                Tab(icon: Icon(Icons.checkroom)),
-                Tab(icon: Icon(Icons.house)),
-                Tab(icon: Icon(Icons.apartment)),
-                Tab(icon: Icon(Icons.attach_money)),
-              ],
+    return Obx(
+      () => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: CustomAppBar(
+          title: titles[selectionController.comparingPageIndex.value],
+          leadingIcon: IconButton(
+            icon: Image.asset(
+              "lib/assets/Icons/Arrow icon.png",
+              width: 28.0,
+              height: 28.0,
             ),
+            onPressed: () {
+              Get.back();
+              selectionController.stopComparing();
+            },
           ),
-          body: TabBarView(
+          tailIcon: IconButton(
+            icon: const Icon(
+              Icons.info_outline,
+              size: 28,
+            ),
+            onPressed: () {},
+          ),
+        ),
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          child: Column(
             children: [
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Restaurants'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Markets'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Transportation'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Utilities (Monthly)'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Sports And Leisure'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Childcare'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Clothing And Shoes'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Rent Per Month'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Buy Apartment Price'),
-              ComparingPage(
-                  selectedComparingCountries: widget.selectedComparingCountries,
-                  title: 'Salaries And Financing'),
+              // The row of selection indicators
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: titles.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        return Container(
+                          height: 15.0,
+                          width: 15.0,
+                          decoration: index ==
+                                  selectionController.comparingPageIndex.value
+                              ? BoxDecoration(
+                                  border: Border.all(
+                                      width: 3, color: Color(0xFF4F7E93)),
+                                  borderRadius: BorderRadius.circular(50))
+                              : BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Color(0xFF4F7E93),
+                                ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ),
+
+              // The page view
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * 0.85,
+                width: MediaQuery.of(context).size.width,
+                child: PageView.builder(
+                  onPageChanged: (value) =>
+                      selectionController.setComparingPageIndex(value),
+                  itemCount: titles.length,
+                  itemBuilder: (context, index) {
+                    return ComparingPage(
+                      selectedComparingCountries:
+                          widget.selectedComparingCountries,
+                      title: titles[index],
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -135,14 +171,8 @@ class ComparingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          body: ListView(children: <Widget>[
-        Center(
-            child: Text(
-          "$title ",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        )),
+    return ListView(
+      children: <Widget>[
         DataTable(
           columns: [
             DataColumn(
@@ -166,7 +196,7 @@ class ComparingPage extends StatelessWidget {
           ],
           rows: table,
         ),
-      ])),
+      ],
     );
   }
 }

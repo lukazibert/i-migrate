@@ -8,5 +8,9 @@ class NavigationController extends GetxController {
 
   final pageController = PageController(initialPage: 0).obs;
 
+  refreshController() {
+    refresh();
+  }
+
   // set
 }

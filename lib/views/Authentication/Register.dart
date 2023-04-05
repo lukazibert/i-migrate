@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:i_migrate/components/CustomButton.dart';
 import 'package:i_migrate/views/GreetingView.dart';
 
+import '../../controllers/ProfileViewController.dart';
+
 class Register extends StatelessWidget {
   Function onClick;
   Function onRegister;
@@ -17,12 +19,13 @@ class Register extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  final profileController = Get.put(ProfileViewController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 150),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 150),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -57,10 +60,15 @@ class Register extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
+                  cursorColor: Color(0xFF4F7E93),
                   controller: nameController,
                   decoration: const InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide()),
-                      labelText: "  Name"),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF4F7E93))),
+                    border: UnderlineInputBorder(borderSide: BorderSide()),
+                    labelText: "  Name",
+                    labelStyle: TextStyle(color: Colors.grey),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
@@ -72,10 +80,16 @@ class Register extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  cursorColor: Color(0xFF4F7E93),
                   controller: emailController,
                   decoration: const InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide()),
-                      labelText: "  Email Address"),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF4F7E93))),
+                    border: UnderlineInputBorder(borderSide: BorderSide()),
+                    labelText: "  Email Address",
+                    labelStyle: TextStyle(color: Colors.grey),
+                    // focusColor: Color(0xFF4F7E93),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -90,11 +104,16 @@ class Register extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  cursorColor: Color(0xFF4F7E93),
                   obscureText: true,
                   controller: passwordController,
                   decoration: const InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide()),
-                      labelText: "  Password"),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF4F7E93))),
+                    border: UnderlineInputBorder(borderSide: BorderSide()),
+                    labelStyle: TextStyle(color: Colors.grey),
+                    labelText: "  Password",
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -124,20 +143,28 @@ class Register extends StatelessWidget {
           ),
           CustomButton(
               onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  onRegister(
-                    {
-                      'name': nameController.text,
-                      'email': emailController.text,
-                      'password': passwordController.text
-                    },
-                  );
-                  Get.to(GreetingView());
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please fill input')),
-                  );
-                }
+                // if (_formKey.currentState!.validate()) {
+                //   onRegister(
+                //     {
+                //       'name': nameController.text,
+                //       'email': emailController.text,
+                //       'password': passwordController.text
+                //     },
+                //   );
+                //   Get.to(GreetingView());
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(content: Text('Please fill input')),
+                //   );
+                // }
+                Get.to(() => GreetingView());
+                profileController.updateUserData(
+                  {
+                    'name': nameController.text,
+                    'email': emailController.text,
+                    'password': passwordController.text
+                  },
+                );
               },
               text: "Register"),
           SizedBox(
@@ -169,7 +196,7 @@ class Register extends StatelessWidget {
                   SizedBox(
                     width: 10.0,
                   ),
-                  Text("Continue wit Google",
+                  Text("Continue with Google",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 24,

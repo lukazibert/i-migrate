@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_migrate/components/CustomButton.dart';
 import 'package:i_migrate/main.dart';
+import 'package:i_migrate/views/ProfileView.dart';
+
+import '../controllers/ProfileViewController.dart';
+import 'InterviewView.dart';
+
+final profileController = Get.put(ProfileViewController());
 
 class GreetingView extends StatelessWidget {
   const GreetingView({super.key});
@@ -36,7 +42,7 @@ class GreetingView extends StatelessWidget {
                   width: double.infinity,
                   child: Center(
                     child: Text(
-                      "Afreen Khan",
+                      profileController.userData["name"].toString(),
                       style: TextStyle(
                           fontSize: 32,
                           fontFamily: "Alegreya Sans",
@@ -66,7 +72,7 @@ class GreetingView extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: GestureDetector(
-                      onTap: (() {}),
+                      onTap: (() => Get.to(() => InterviewView())),
                       child: Container(
                         padding: EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
@@ -92,7 +98,7 @@ class GreetingView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (() {
-                    Get.to(MainView());
+                    Get.to(() => MainView());
                   }),
                   child: Container(
                     padding: EdgeInsets.all(10.0),

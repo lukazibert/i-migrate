@@ -14,7 +14,7 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => profileController.questionAndAnwser.value.isEmpty
+    return Obx(() => profileController.userData["questionAndAnwsers"].isEmpty
         ? EmptyProfilePage()
         : ProfilePage());
   }
@@ -27,7 +27,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List _questionAndAnwser = profileController.questionAndAnwser.value;
+    final List _questionAndAnwser =
+        profileController.userData["questionAndAnwsers"];
 
     return Container(
       color: Colors.transparent,
@@ -109,6 +110,7 @@ class EmptyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        color: Colors.white,
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top,
             left: 15,
@@ -132,7 +134,9 @@ class EmptyProfilePage extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                CustomButton(onTap: () => {}, text: "Start Interview"),
+                CustomButton(
+                    onTap: () => Get.to(InterviewView()),
+                    text: "Start Interview"),
               ],
             )
           ],
@@ -157,7 +161,7 @@ class UserInfo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: Text(
-            "Afreen Khan",
+            profileController.userData["name"] ?? "Luka",
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 35,
