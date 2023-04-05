@@ -143,20 +143,20 @@ class Register extends StatelessWidget {
           ),
           CustomButton(
               onTap: () {
-                // if (_formKey.currentState!.validate()) {
-                //   onRegister(
-                //     {
-                //       'name': nameController.text,
-                //       'email': emailController.text,
-                //       'password': passwordController.text
-                //     },
-                //   );
-                //   Get.to(GreetingView());
-                // } else {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     const SnackBar(content: Text('Please fill input')),
-                //   );
-                // }
+                if (_formKey.currentState!.validate()) {
+                  onRegister(
+                    {
+                      'name': nameController.text,
+                      'email': emailController.text,
+                      'password': passwordController.text
+                    },
+                  );
+                  Get.to(GreetingView());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please fill input')),
+                  );
+                }
                 Get.to(() => GreetingView());
                 profileController.updateUserData(
                   {
