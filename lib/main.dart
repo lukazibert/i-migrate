@@ -76,7 +76,6 @@ class _CompositionState extends State<Composition> {
 
   final PageController _pageController = PageController(initialPage: 0);
 
-  // bool _disableScroll = false;
   isLogedin(widget) {
     if (authenticated) {
       return widget;

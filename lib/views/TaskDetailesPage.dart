@@ -78,38 +78,6 @@ class TaskDetailsPage extends StatelessWidget {
                             color: Colors.black)),
                   ],
                 ),
-
-                // SizedBox(height: 40),
-                // Center(
-                //   child: Text(
-                //     title,
-                //     style: TextStyle(
-                //       fontSize: 24,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(height: 20),
-                // Card(
-                //   color: Color(0xFFE5E5E5),
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Text(
-                //           'How to complete the tasks:',
-                //           style: TextStyle(
-                //               fontSize: 18, fontWeight: FontWeight.bold),
-                //         ),
-                //         SizedBox(height: 10),
-                //         Text('1. Step 1 instructions...'),
-                //         Text('2. Step 2 instructions...'),
-                //         // Add more steps as needed
-                //       ],
-                //     ),
-                //   ),
-                // ),
               )
             ],
           ),

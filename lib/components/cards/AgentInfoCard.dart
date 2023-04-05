@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:i_migrate/components/CustomButton.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-// import 'package:i_migrate/components/checklist_item.dart';
 
 class AgentInfoCard extends StatefulWidget {
   final String title;
@@ -107,72 +106,6 @@ class _AgentInfoCardState extends State<AgentInfoCard> {
         ),
       ),
     );
-
-    // Card(
-    //   color: Color(0xFFE5E5E5),
-    //   child: InkWell(
-    //     onTap: () {
-    //       setState(() {
-    //         _isExpanded = !_isExpanded;
-    //       });
-    //     },
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(8.0),
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: [
-    //               Text(
-    //                 widget.title,
-    //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    //               ),
-    //               CircularPercentIndicator(
-    //                 radius: 30.0,
-    //                 lineWidth: 4.0,
-    //                 percent: checkedCount / widget.items.length,
-    //                 center: Text(
-    //                   '${((checkedCount / widget.items.length) * 100).round()}%',
-    //                   style: TextStyle(fontSize: 10),
-    //                 ),
-    //                 progressColor: Colors.blue,
-    //               ),
-    //             ],
-    //           ),
-    //           AnimatedSwitcher(
-    //             duration: Duration(milliseconds: 300),
-    //             child: _isExpanded
-    //                 ? Column(
-    //                     key: ValueKey<int>(checkedCount),
-    //                     children: [
-    //                       ...widget.items
-    //                           .asMap()
-    //                           .entries
-    //                           .map(
-    //                             (entry) => ChecklistItem(
-    //                               key: ValueKey<int>(entry.key),
-    //                               index: entry.key,
-    //                               title: entry.value,
-    //                               isChecked: _checkedItems[entry.key],
-    //                               onChanged: _onItemChanged,
-    //                             ),
-    //                           )
-    //                           .toList(),
-    //                       SizedBox(height: 10),
-    //                       TextButton(
-    //                         onPressed: widget.onContinuePressed,
-    //                         child: Text("Continue"),
-    //                       ),
-    //                     ],
-    //                   )
-    //                 : SizedBox(),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
 

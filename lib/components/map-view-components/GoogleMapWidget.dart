@@ -7,13 +7,10 @@ import '../../controllers/GoogleMapViewController.dart';
 class GoogleMapWidget extends StatelessWidget {
   GoogleMapWidget({super.key});
 
-  // late GoogleMapController _mapController;
   final mapViewController = Get.put(MapViewController());
 
   void _onMapCreated(GoogleMapController controller) {
-    // _mapController = controller;
     mapViewController.setGoogleMapController(controller);
-    // _getCurrentLoaction();
   }
 
   @override

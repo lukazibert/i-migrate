@@ -138,12 +138,6 @@ class Question extends StatelessWidget {
                                   .jumpToPage(navigationController
                                       .currentPageIndex.value),
                               navigationController.refreshController(),
-                              // print(interviewController
-                              //         .pageController.value.page!
-                              //         .toInt() ==
-                              //     interviewController
-                              //             .interviewQuestions.length -
-                              //         1)
                             }
                           : interviewController.pageController.value
                               .animateToPage(

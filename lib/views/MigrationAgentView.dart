@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:i_migrate/components/cards/agent_info_card.dart';
-// import 'package:i_migrate/views/details_page.dart';
 
 import '../components/cards/AgentInfoCard.dart';
 import 'TaskDetailesPage.dart';

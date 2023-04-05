@@ -98,7 +98,6 @@ class MapViewController extends GetxController {
   }
 
   animateCamera(CameraPosition cameraPosition) {
-    // final GoogleMapsView controller = googleMapsController;
     mapController.value
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
