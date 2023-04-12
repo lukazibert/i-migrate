@@ -22,7 +22,7 @@ i-migrate provides a one-stop shop that encapsulates the major immigration requi
 
 ## Getting Started
 
-To get started with MyApp, follow these steps:
+To get started with i-migrate, follow these steps:
 
 * Clone this repository to your local machine using git clone https://github.com/lukazibert/i-migrate
 * Navigate to the project directory using cd i_migrate
